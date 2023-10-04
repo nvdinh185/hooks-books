@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const Home = () => {
 
@@ -11,11 +11,25 @@ const Home = () => {
             setListBooks(result.data);
         }
         fetchData();
-    }, []);
+    });
+
+    const { state } = useLocation();
+    let msg = state?.msg;
+
+    const handleDelete = async (id) => {
+        if (confirm('Bạn có chắc muốn xóa ?')) {
+            await axios({
+                method: "DELETE",
+                url: `http://localhost:3001/book/${id}`,
+            });
+            msg = 'Đã xóa thành công!';
+        }
+    }
 
     return (
         <div>
             <button><Link to='/add'>Thêm sách</Link></button>
+            <p>{msg}</p>
             <table>
                 <thead>
                     <tr>
@@ -37,8 +51,8 @@ const Home = () => {
                             <td>{book.detail}</td>
                             <td>{book.status}</td>
                             <td>
-                                <Link to='/edit/1'>Sửa</Link>
-                                <a href="">Xóa</a>
+                                <button><Link to={'/edit/' + book.id}>Sửa</Link></button>
+                                <button onClick={() => handleDelete(book.id)}>Xóa</button>
                             </td>
                         </tr>
                     )}
