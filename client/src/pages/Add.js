@@ -39,7 +39,8 @@ const Add = () => {
                 url: 'http://localhost:3001/book',
                 data: formValue
             });
-            navigate('/', { state: { msg: 'Đã thêm thành công!' } });
+            // navigate('/');
+            navigate('/', { state: { msg: 'OK' } });
         }
     }
 
