@@ -5,20 +5,19 @@ import { Link, useLocation } from "react-router-dom";
 const Home = () => {
 
     const [listBooks, setListBooks] = useState([]);
-    const [msg, setMsg] = useState('123');
+    const [msg, setMsg] = useState('');
     const { state } = useLocation();
-    console.log(state);
+
     useEffect(() => {
         async function fetchData() {
-            var result = await axios('http://localhost:3001/book');
+            let result = await axios('http://localhost:3001/book');
             setListBooks(result.data);
         }
         fetchData();
-
-        return () => {
-            // setListBooks([]);
-        };
-    });
+        if (state) {
+            setMsg(state.msg);
+        }
+    }, []);
 
 
     const handleDelete = async (id) => {
@@ -27,15 +26,16 @@ const Home = () => {
                 method: "DELETE",
                 url: `http://localhost:3001/book/${id}`,
             });
-            // msg = 'Đã xóa thành công!';
-            // console.log(msg);
         }
+        let result = await axios('http://localhost:3001/book');
+        setListBooks(result.data);
+        setMsg('Đã xóa thành công!');
     }
 
     return (
         <div>
             <button><Link to='/add'>Thêm sách</Link></button>
-            {msg}
+            <p style={{ color: 'green', backgroundColor: 'yellow' }}>{msg}</p>
             <table>
                 <thead>
                     <tr>

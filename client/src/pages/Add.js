@@ -6,20 +6,17 @@ const Add = () => {
 
     const [errorTitle, setErrorTitle] = useState('');
     const [title, setTitle] = useState('');
+    const [description, setDescription] = useState('');
+    const [detail, setDetail] = useState('');
+    const [status, setStatus] = useState(true);
 
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const formValue = {};
-        for (const el of e.target) {
-            if (el.name) {
-                formValue[el.name] = el.value;
-            }
-        }
         var check = true;
-        if (!formValue['title']) {
-            setErrorTitle('Vui lòng nhập tiêu đề');
+        if (!title) {
+            setErrorTitle('Vui lòng nhập tiêu đề!');
             check = false;
         }
 
@@ -31,23 +28,35 @@ const Add = () => {
         }
 
         if (check) {
-            formValue['id'] = generateUuid();
-            formValue['status'] = formValue['status'] === 'true';//chuyển sang kiểu dữ liệu boolean
-            // console.log(formValue);
+            let stt = status;
+            //chuyển sang kiểu dữ liệu boolean (nếu là string)
+            if (status === 'true') {
+                stt = true;
+            }
+            if (status === 'false') {
+                stt = false;
+            }
+            let formValue = {
+                id: generateUuid(),
+                title,
+                description,
+                detail,
+                status: stt
+
+            }
             await axios({
                 method: "POST",
                 url: 'http://localhost:3001/book',
                 data: formValue
             });
-            // navigate('/');
-            navigate('/', { state: { msg: 'OK' } });
+            navigate('/', { state: { msg: 'Đã thêm thành công!' } });
         }
     }
 
     const handleBlur = (e) => {
         if (e.target.name == 'title') {
             if (!e.target.value) {
-                setErrorTitle('Vui lòng nhập tiêu đề');
+                setErrorTitle('Vui lòng nhập tiêu đề!');
             }
         }
     }
@@ -81,19 +90,21 @@ const Add = () => {
 
                     <div>
                         <label>description</label><br />
-                        <textarea rows="3" cols="25" name="description"></textarea>
+                        <textarea rows="3" cols="25"
+                            value={description} onChange={(e) => { setDescription(e.target.value) }}></textarea>
                     </div>
 
                     <div>
                         <label>detail</label><br />
-                        <textarea rows="3" cols="25" name="detail"></textarea>
+                        <textarea rows="3" cols="25"
+                            value={detail} onChange={(e) => { setDetail(e.target.value) }}></textarea>
                     </div>
 
                     <div>
                         <label>status</label><br />
-                        <select name="status">
-                            <option value="true">Enabled</option>
-                            <option value="false">Disabled </option>
+                        <select value={status} onChange={(e) => { setStatus(e.target.value) }}>
+                            <option value='true'>Enabled</option>
+                            <option value='false'>Disabled </option>
                         </select>
                     </div>
                     <input type="submit" value="Thêm sách" />
