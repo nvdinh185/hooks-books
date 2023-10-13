@@ -5,10 +5,13 @@ import { Link, useNavigate } from "react-router-dom";
 const Add = () => {
 
     const [errorTitle, setErrorTitle] = useState('');
+    const [errorDescription, setErrorDescription] = useState('');
+    const [errorDetail, setErrorDetail] = useState('');
+    const [errorStatus, setErrorStatus] = useState('');
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [detail, setDetail] = useState('');
-    const [status, setStatus] = useState(true);
+    const [status, setStatus] = useState('');
 
     const navigate = useNavigate();
 
@@ -17,6 +20,18 @@ const Add = () => {
         var check = true;
         if (!title) {
             setErrorTitle('Vui lòng nhập tiêu đề!');
+            check = false;
+        }
+        if (!description) {
+            setErrorDescription('Vui lòng nhập mô tả!');
+            check = false;
+        }
+        if (!detail) {
+            setErrorDetail('Vui lòng nhập chi tiết!');
+            check = false;
+        }
+        if (!status) {
+            setErrorStatus('Vui lòng nhập trạng thái!');
             check = false;
         }
 
@@ -58,12 +73,30 @@ const Add = () => {
             if (!e.target.value) {
                 setErrorTitle('Vui lòng nhập tiêu đề!');
             }
+        } else if (e.target.name == 'description') {
+            if (!e.target.value) {
+                setErrorDescription('Vui lòng nhập mô tả!');
+            }
+        } else if (e.target.name == 'detail') {
+            if (!e.target.value) {
+                setErrorDetail('Vui lòng nhập chi tiết!');
+            }
+        } else if (e.target.name == 'status') {
+            if (!e.target.value) {
+                setErrorStatus('Vui lòng nhập trạng thái!');
+            }
         }
     }
 
     const handleInput = (e) => {
         if (e.target.name == 'title') {
             setErrorTitle('');
+        } else if (e.target.name == 'description') {
+            setErrorDescription('');
+        } else if (e.target.name == 'detail') {
+            setErrorDetail('');
+        } else if (e.target.name == 'status') {
+            setErrorStatus('');
         }
     }
 
@@ -79,7 +112,7 @@ const Add = () => {
 
                     <div>
                         <label>title</label><br />
-                        <input onBlur={(e) => handleBlur(e)} onInput={(e) => handleInput(e)} type="text"
+                        <input onBlur={e => handleBlur(e)} onInput={e => handleInput(e)} type="text"
                             name="title" className={errorTitle && 'invalid'} value={title}
                             onChange={(e) => { setTitle(e.target.value) }} />
                         <span style={{
@@ -90,22 +123,39 @@ const Add = () => {
 
                     <div>
                         <label>description</label><br />
-                        <textarea rows="3" cols="25"
+                        <textarea rows="3" cols="25" onBlur={e => handleBlur(e)} onInput={e => handleInput(e)}
+                            name="description" className={errorDescription && 'invalid'}
                             value={description} onChange={(e) => { setDescription(e.target.value) }}></textarea>
+                        <span style={{
+                            color: 'red',
+                            fontStyle: 'italic'
+                        }}>{errorDescription}</span>
                     </div>
 
                     <div>
                         <label>detail</label><br />
-                        <textarea rows="3" cols="25"
+                        <textarea rows="3" cols="25" onBlur={e => handleBlur(e)} onInput={e => handleInput(e)}
+                            name="detail" className={errorDetail && 'invalid'}
                             value={detail} onChange={(e) => { setDetail(e.target.value) }}></textarea>
+                        <span style={{
+                            color: 'red',
+                            fontStyle: 'italic'
+                        }}>{errorDetail}</span>
                     </div>
 
                     <div>
                         <label>status</label><br />
-                        <select value={status} onChange={(e) => { setStatus(e.target.value) }}>
+                        <select value={status} onChange={(e) => { setStatus(e.target.value) }}
+                            name="status" className={errorStatus && 'invalid'}
+                            onBlur={e => handleBlur(e)} onInput={e => handleInput(e)}>
+                            <option value=''>-- Chọn tình trạng sách --</option>
                             <option value='true'>Enabled</option>
                             <option value='false'>Disabled </option>
                         </select>
+                        <span style={{
+                            color: 'red',
+                            fontStyle: 'italic'
+                        }}>{errorStatus}</span>
                     </div>
                     <input type="submit" value="Thêm sách" />
                 </form>

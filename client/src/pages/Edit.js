@@ -5,7 +5,6 @@ import { Link, useParams, useNavigate } from "react-router-dom";
 const Edit = () => {
 
     const { id } = useParams();
-    const [errorTitle, setErrorTitle] = useState('');
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [detail, setDetail] = useState('');
@@ -26,51 +25,30 @@ const Edit = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        var check = true;
-        if (!title) {
-            setErrorTitle('Vui lòng nhập tiêu đề');
-            check = false;
+
+        let stt = status;
+        //chuyển sang kiểu dữ liệu boolean (nếu là string)
+        if (status === 'true') {
+            stt = true;
+        }
+        if (status === 'false') {
+            stt = false;
+        }
+        let formValue = {
+            id,
+            title,
+            description,
+            detail,
+            status: stt
+
         }
 
-        if (check) {
-            let stt = status;
-            //chuyển sang kiểu dữ liệu boolean (nếu là string)
-            if (status === 'true') {
-                stt = true;
-            }
-            if (status === 'false') {
-                stt = false;
-            }
-            let formValue = {
-                id,
-                title,
-                description,
-                detail,
-                status: stt
-
-            }
-
-            await axios({
-                method: "PUT",
-                url: `http://localhost:3001/book/${id}`,
-                data: formValue
-            });
-            navigate('/', { state: { msg: 'Đã sửa thành công!' } });
-        }
-    }
-
-    const handleBlur = (e) => {
-        if (e.target.name == 'title') {
-            if (!e.target.value) {
-                setErrorTitle('Vui lòng nhập tiêu đề');
-            }
-        }
-    }
-
-    const handleInput = (e) => {
-        if (e.target.name == 'title') {
-            setErrorTitle('');
-        }
+        await axios({
+            method: "PUT",
+            url: `http://localhost:3001/book/${id}`,
+            data: formValue
+        });
+        navigate('/', { state: { msg: 'Đã sửa thành công!' } });
     }
 
     return (
@@ -89,30 +67,25 @@ const Edit = () => {
 
                     <div>
                         <label>title</label><br />
-                        <input onBlur={(e) => handleBlur(e)} onInput={(e) => handleInput(e)} type="text"
-                            name="title" className={errorTitle && 'invalid'} value={title}
-                            onChange={(e) => { setTitle(e.target.value) }} />
-                        <span style={{
-                            color: 'red',
-                            fontStyle: 'italic'
-                        }}>{errorTitle}</span>
+                        <input type="text" value={title} onChange={(e) => { setTitle(e.target.value) }} />
                     </div>
 
                     <div>
                         <label>description</label><br />
-                        <textarea rows="3" cols="25" name="description"
+                        <textarea rows="3" cols="25"
                             value={description} onChange={(e) => { setDescription(e.target.value) }}></textarea>
                     </div>
 
                     <div>
                         <label>detail</label><br />
-                        <textarea rows="3" cols="25" name="detail"
+                        <textarea rows="3" cols="25"
                             value={detail} onChange={(e) => { setDetail(e.target.value) }}></textarea>
                     </div>
 
                     <div>
                         <label>status</label><br />
                         <select value={status} onChange={(e) => { setStatus(e.target.value) }}>
+                            <option value=''>-- Chọn tình trạng sách --</option>
                             <option value="true">Enabled</option>
                             <option value="false">Disabled </option>
                         </select>
