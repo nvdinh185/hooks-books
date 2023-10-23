@@ -5,7 +5,7 @@ const port = 3001;
 
 app.use(cors());
 app.use(express.json());
-app.use(express.static(__dirname + '/client'));
+app.use(express.static(__dirname + '/client/build'));
 
 const route = require('./routes');
 
