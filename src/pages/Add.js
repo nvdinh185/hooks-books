@@ -5,17 +5,13 @@ const Add = () => {
     return (
         <div>
             <h2>
-                <span>Thêm thông tin sách</span>
+                <button><Link to='/'>Danh sách</Link></button>
+                <p>Thêm thông tin sách</p>
             </h2>
 
             <div>
 
                 <form action="" method="post">
-
-                    <div>
-                        <input type="hidden" name="id" value="" />
-
-                    </div>
 
                     <div>
                         <label>title</label><br />
@@ -41,7 +37,6 @@ const Add = () => {
                     </div>
                     <input type="submit" value="Thêm sách" />
                 </form>
-                <button><Link to='/'>Danh sách</Link></button>
             </div>
         </div>
     )

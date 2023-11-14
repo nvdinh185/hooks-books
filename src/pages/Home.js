@@ -7,8 +7,12 @@ const Home = () => {
     const [listBooks, setListBooks] = useState([]);
     useEffect(() => {
         async function fetchData() {
-            var result = await axios('http://localhost:3001/book');
-            setListBooks(result.data);
+            try {
+                var result = await axios('http://localhost:3001/books');
+                setListBooks(result.data);
+            } catch (error) {
+                console.log(error);
+            }
         }
         fetchData();
     }, []);

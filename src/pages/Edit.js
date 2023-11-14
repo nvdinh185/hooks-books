@@ -1,9 +1,12 @@
+import { Link } from "react-router-dom";
+
 const Edit = () => {
 
     return (
         <div>
             <h2>
-                <span>Sửa thông tin sách</span>
+                <button><Link to='/'>Danh sách</Link></button>
+                <p>Sửa thông tin sách</p>
             </h2>
 
             <div>
@@ -39,7 +42,6 @@ const Edit = () => {
                     </div>
                     <input type="submit" value="Sửa sách" />
                 </form>
-                <button><a href="list.html">Danh sách</a></button>
             </div>
         </div>
     )
