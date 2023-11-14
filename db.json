@@ -1,0 +1,25 @@
+{
+  "books": [
+    {
+      "id": "6de2-bd9f-c63-1e28",
+      "title": "tiểu thuyết",
+      "description": "mô tả tiểu thuyết",
+      "detail": "chi tiết tiểu thuyết",
+      "status": "1"
+    },
+    {
+      "id": "e5c5-805d-e2c-3900",
+      "title": "sách thiếu nhi",
+      "description": "mô tả sách thiếu nhi",
+      "detail": "chi tiết sách thiếu nhi",
+      "status": "1"
+    },
+    {
+      "id": "cefd-7db0-2b8-2da0",
+      "title": "sách giáo khoa",
+      "description": "mô tả sách giáo khoa",
+      "detail": "chi tiết sách giáo khoa",
+      "status": "0"
+    }
+  ]
+}
