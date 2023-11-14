@@ -103,7 +103,8 @@ const Add = () => {
     return (
         <div>
             <h2>
-                <span>Thêm thông tin sách</span>
+                <button><Link to='/'>Danh sách</Link></button>
+                <p>Thêm thông tin sách</p>
             </h2>
 
             <div>
@@ -159,7 +160,6 @@ const Add = () => {
                     </div>
                     <input type="submit" value="Thêm sách" />
                 </form>
-                <button><Link to='/'>Danh sách</Link></button>
             </div>
         </div>
     )
