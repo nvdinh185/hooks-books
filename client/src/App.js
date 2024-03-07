@@ -7,15 +7,13 @@ import Edit from "./pages/Edit";
 const App = () => {
 
     return (
-        <>
-            <Router>
-                <Routes>
-                    <Route path='/' element={<Home />} />
-                    <Route path='/add' element={<Add />} />
-                    <Route path='/edit/:id' element={<Edit />} />
-                </Routes>
-            </Router>
-        </>
+        <Router>
+            <Routes>
+                <Route path='/' element={<Home />} />
+                <Route path='/add' element={<Add />} />
+                <Route path='/edit/:id' element={<Edit />} />
+            </Routes>
+        </Router>
     )
 }
 
