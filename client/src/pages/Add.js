@@ -57,8 +57,8 @@ const Add = () => {
                 description,
                 detail,
                 status: stt
-
             }
+
             await axios({
                 method: "POST",
                 url: 'http://localhost:3001/book',

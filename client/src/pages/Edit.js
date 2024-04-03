@@ -40,7 +40,6 @@ const Edit = () => {
             description,
             detail,
             status: stt
-
         }
 
         await axios({

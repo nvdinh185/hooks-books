@@ -26,10 +26,10 @@ const Home = () => {
                 method: "DELETE",
                 url: `http://localhost:3001/book/${id}`,
             });
+            let newList = listBooks.filter(book => book.id !== id);
+            setListBooks(newList);
+            setMsg('Đã xóa thành công!');
         }
-        let result = await axios('http://localhost:3001/book');
-        setListBooks(result.data);
-        setMsg('Đã xóa thành công!');
     }
 
     return (
